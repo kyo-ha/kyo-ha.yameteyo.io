@@ -1,0 +1,268 @@
+<!-- 本ファイルはBB2021_editorによって自動生成されたものです。 -->
+<!-- ブロック崩しを動かすのに必要な記述が行われています。 -->
+<!-- 本ファイルは編集しないでください。 -->
+<!-- 使用する際は他のHTMLから<iframe>を使用して埋め込むことを推奨します。 -->
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="utf-8">
+	<script defer src="./bb2021main.js"></script>
+	<style type="text/css">
+		
+body {
+    margin: 0px;
+    padding: 0px;
+    max-height: 100vh;
+    max-width: 100vw;
+    /* スクロールバーを表示させない． */
+    /* 特にbumpしたとき */
+    overflow: hidden;
+}
+
+#bb2021 {
+    display: block;
+    max-height: 99vh;
+    max-width: 99vw;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    /* 選択不可能にする */
+    user-select: none;
+    border: 2px solid black;
+    font-family: "Arial";
+}
+
+    #bb2021 > svg {
+        /* SVGの重ね描きに必要． */
+        /* SVGにしたからいらないのでは？ */
+        position: absolute;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    #bb2021 image {
+        width: 100%;
+    }
+
+#bb_g-lines rect {
+    fill: white;
+    fill-opacity: 0.25;
+    stroke: gray;
+}
+
+    #bb_g-lines rect.hide_line {
+        fill-opacity: 0;
+        stroke-opacity: 0;
+    }
+
+#bb_foregroundMask rect {
+    fill: white;
+}
+
+    #bb_foregroundMask rect.hide_mask {
+        fill-opacity: 0;
+        /* transitionでブロックをジワリと消す */
+        /* iPhoneでfpsダウン */
+        /* transition: all 0.5s; */
+    }
+
+/* #bb2021 bump effect */
+@keyframes bump-left-animation {
+    50% {
+        transform: translateX(-0.5%);
+    }
+}
+
+@keyframes bump-right-animation {
+    50% {
+        transform: translateX(0.5%);
+    }
+}
+
+@keyframes bump-up-animation {
+    50% {
+        transform: translateY(-0.5%);
+    }
+}
+
+@keyframes bump-down-animation {
+    50% {
+        transform: translateY(0.5%);
+    }
+}
+
+#bb2021.bump-left {
+    animation: bump-left-animation 0.1s linear both;
+}
+
+#bb2021.bump-right {
+    animation: bump-right-animation 0.1s linear both;
+}
+
+#bb2021.bump-up {
+    animation: bump-up-animation 0.1s linear both;
+}
+
+#bb2021.bump-down {
+    animation: bump-down-animation 0.1s linear both;
+}
+
+@keyframes loading-text-animation {
+    50% {
+        transform: translate(0, 10%);
+    }
+}
+
+#bb_loading {
+    animation: loading-text-animation 3s linear 0s both infinite;
+}
+
+@keyframes pad-hit-animation {
+    50% {
+        opacity: 0.1;
+    }
+}
+
+#bb_pad.hit_pad {
+    animation: pad-hit-animation 0.1s linear 0s both;
+}
+
+#bb_balls > .penetration {
+    fill: red;
+}
+
+	</style>
+	<title>
+		BB2021
+	</title>
+</head>
+
+<body>
+	<svg id="bb2021" viewBox="0,0,1000,1780.000000000001" version="1.1" xmlns="http://www.w3.org/2000/svg"
+		 xmlns:xlink="http://www.w3.org/1999/xlink">
+		<!-- for image mask -->
+		<svg viewBox="0,0,1000,1780.000000000001" version="1.1" xmlns="http://www.w3.org/2000/svg"
+			 xmlns:xlink="http://www.w3.org/1999/xlink">
+			<image id="bb_background" />
+			<defs>
+				<mask id="bb_foregroundMask">
+					<!-- rects will be injected by JavaScript -->
+				</mask>
+			</defs>
+			<!-- image 要素で画像を取り込み mask 属性で定義したマスクを参照 -->
+			<image id="bb_foreground" mask="url(#bb_foregroundMask)" />
+			<g id="bb_g-lines">
+				<!-- rects will be injected by JavaScript -->
+			</g>
+		</svg>
+		<svg viewBox="0,0,1000,1780.000000000001" version="1.1" xmlns="http://www.w3.org/2000/svg"
+			 xmlns:xlink="http://www.w3.org/1999/xlink">
+			<defs>
+				<symbol id="bb_pad_symbol" stroke="black">
+					<rect id="bb_pad_base" width="100%" height="100%" fill="rgb(10,255,10)" />
+					<rect id="bb_pad_core" x="46%" width="8%" height="100%" fill="rgb(255,20,20)" />
+				</symbol>
+				<symbol id="bb_1up_icon" viewBox="0,0,100,100">
+					<rect width="100%" height="100%" stroke="black" stroke-width="8%" fill="#ffd700" />
+					<text x="48%" y="68%" text-anchor="middle" font-family="Arial" font-size="55">1up</text>
+				</symbol>
+				<symbol id="bb_piercing_icon" viewBox="0,0,100,100">
+					<rect width="100%" height="100%" fill="#00ffaa" />
+					<rect x="17" y="30" height="20" width="100" fill="white" />
+					<g fill="#dd0000" transform="translate(-10,-10)">
+						<ellipse cx="50" cy="50" rx="22" ry="9" />
+						<rect x="50" y="41" width="25" height="18" />
+						<line x1="80" y1="45" x2="92" y2="45" stroke="gray" />
+						<line x1="80" y1="50" x2="90" y2="50" stroke="gray" />
+						<line x1="80" y1="55" x2="92" y2="55" stroke="gray" />
+					</g>
+					<text x="50%" y="78%" text-anchor="middle" font-family="Arial" font-size="26">
+						piercing
+					</text>
+					<rect width="100%" height="100%" stroke="black" stroke-width="8%" fill="none" />
+				</symbol>
+				<symbol id="bb_many_icon" viewBox="0,0,100,100">
+					<rect width="100%" height="100%" stroke="black" stroke-width="8%" fill="lightgreen" />
+					<circle cx="20" cy="20" r="25" fill="white" stroke="black" stroke-width="2" />
+					<circle cx="80" cy="20" r="25" fill="white" stroke="black" stroke-width="2" />
+					<circle cx="50" cy="45" r="25" fill="white" stroke="black" stroke-width="2" />
+					<text x="50%" y="89%" text-anchor="middle" font-family="Arial" font-size="35">
+						Many
+					</text>
+					<rect width="100%" height="100%" stroke="black" stroke-width="8%" fill="none" />
+				</symbol>
+				<symbol id="bb_wide_icon" viewBox="0,0,100,100">
+					<rect width="100%" height="100%" stroke="black" stroke-width="8%" fill="aliceblue" />
+					<polygon fill="#ff7700" points="8,32 40,52 40,37 60,37 60,52 92,32 60,12 60,27 40,27 40,12" />
+					<text x="50%" y="87%" text-anchor="middle" font-family="Arial" font-size="35">
+						Wide
+					</text>
+				</symbol>
+				<symbol id="bb_short_icon" viewBox="0,0,100,100">
+					<rect width="100%" height="100%" stroke="black" stroke-width="8%" fill="aliceblue" />
+					<polygon fill="#0000cc" points="45,35 27,10 27,25 9,25 9,45 27,45 27,60" />
+					<polygon fill="#0000cc" points="55,35 73,10 73,25 91,25 91,45 73,45 73,60" />
+					<text x="50%" y="87%" text-anchor="middle" font-family="Arial" font-size="33">
+						short
+					</text>
+				</symbol>
+				<symbol id="bb_blink_icon" viewBox="0,0,100,100">
+					<rect width="100%" height="100%" stroke="black" stroke-width="8%" fill="#ff5599" />
+					<path d="M10 50 C28 78, 72 78, 90 50 C72 22, 28 22, 10 50 Z" stroke="black" stroke-width="2"
+						  fill="white" transform="translate(0,-12)" />
+					<circle cx="50" cy="38" r="18" fill="#eeeeff" stroke="black" stroke-width="2" />
+					<circle cx="50" cy="38" r="6" />
+					<line x1="10" y1="13" x2="90" y2="63" stroke="black" stroke-width="4" />
+					<text x="50%" y="91%" text-anchor="middle" font-family="Arial" font-size="35">Blink</text>
+				</symbol>
+				<symbol id="bb_bigball_icon" viewBox="0,0,100,100">
+					<rect width="100%" height="100%" stroke="black" stroke-width="8%" fill="#33ccff" />
+					<circle cx="50" cy="38" r="30" fill="white" stroke="black" stroke-width="2" />
+					<circle cx="37" cy="51" r="12" fill="white" stroke="black" stroke-width="1.5"
+							stroke-dasharray="3 2" />
+					<polygon fill="#ff7700" points="0,0 30,5 27,13 50,0 27,-13 30,-5"
+							 transform="rotate(-45) translate(0,60) scale(0.75)" />
+					<text x="50%" y="91%" text-anchor="middle" font-family="Arial" font-size="27">Big ball</text>
+				</symbol>
+			</defs>
+			<g id="bb_balls" stroke="black" fill="rgb(200,200,200)">
+			</g>
+			<use id="bb_pad" href="#bb_pad_symbol" x="0%" y="95%" width="60%" height="3%" />
+			<g id="bb_dropitems"></g>
+			<!-- text -->
+			<text id="bb_loading" x="50%" y="50%" text-anchor="middle" font-size="200"
+				  font-family="Arial">Loading...</text>
+			<!-- Stage, Game両方 -->
+			<g>
+				<text id="bb_cleartext" x="50%" y="85%" text-anchor="middle" font-size="1000%"
+					  font-family="Arial"></text>
+				<text visibility="hidden" id="bb_clearnavi" x="50%" y="89%" text-anchor="middle" font-size="300%"
+					  font-family="Arial">
+					Please click to go to the next page.
+				</text>
+			</g>
+			<g id="bb_gameover" visibility="hidden">
+				<text x="50%" y="50%" text-anchor="middle" font-size="180" font-family="Arial">
+					Game
+					over
+				</text>
+				<text x="50%" y="55%" text-anchor="middle" font-size="60" font-family="Arial">
+					Please reload the
+					page to
+					try again
+				</text>
+			</g>
+			<text id="bb_failed" visibility="hidden" x="50%" y="85%" text-anchor="middle" font-family="Arial"
+				  font-size="1000%">Failed</text>
+			<!-- end text -->
+			<text id="bb_item_name" x="23%" y="95.5%" text-anchor="end" font-size="45">no item</text>
+			<line id="bb_item_gauge" x1="25%" y1="94.5%" x2="90%" y2="94.5%" stroke="red" stroke-width="30" />
+			<text id="bb_text_stage" x="2%" y="99%" text-anchor="start" font-size="45">Stage 1/1 </text>
+			<text id="bb_text_percent" x="50%" y="99%" text-anchor="middle" font-size="45">0% / 0%</text>
+			<text id="bb_text_stock" x="98%" y="99%" text-anchor="end" font-size="45">Stock 0</text>
+		</svg>
+	</svg>
+</body>
+
+</html>
