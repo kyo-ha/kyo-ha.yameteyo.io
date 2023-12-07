@@ -4,13 +4,6 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- Twitter -->
-	<meta name="twitter:card" content="summary" />
-	<meta name="twitter:site" content="@MUNKU_maple" />
-	<meta property="og:url" content="https://htymfield.net" />
-	<meta property="og:title" content="畑山畑" />
-	<meta property="og:description" content="畑山えぬのホームページです。" />
-	<meta property="og:image" content="https://htymfield.net/image/htymLogo_cube.png" />
 	<style>
 		iframe {
 			/* iframeのサイズ調整 */
